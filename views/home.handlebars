@@ -1,0 +1,36 @@
+<main>
+
+  <form id="formAdd" action="/add" method="post">
+    <input
+      id="inputTask"
+      type="text"
+      name="name"
+      placeholder="Digite sua task aqui"
+      required
+    />
+    <input id="inputSubmit" type="submit" value="+" />
+  </form>
+
+  <div class="tasks">
+    <ul>
+      {{#each task}}
+        <li>
+          <form action="/del" method="post">
+            <div>
+              <input type="hidden" name="id" value="{{this.id}}" />
+              <span>{{this.task}}</span>
+            </div>
+            <div>
+              <input type="submit" name="del" value="Delete" id="delete" />
+            </div>
+          </form>
+          <div id="buttons">
+            <label for="delete"><i class="fa-solid fa-check"></i></label>
+            <a href="/edit/{{this.id}}"><i class="fa-solid fa-pencil"></i></a>
+          </div>
+        </li>
+      {{/each}}
+    </ul>
+  </div>
+
+</main>

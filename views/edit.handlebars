@@ -1,0 +1,13 @@
+<main>
+  {{#each task}}
+
+    <form action="/edit" method="post" id="editForm">
+
+      <input type="hidden" name="id" value="{{this.id}}" />
+      <input type="text" name="name" value="{{this.task}}" id="editInput" />
+      <button type="submit" name="edit" id="editSubmit">
+        <i class="fa-solid fa-check"></i></button>
+    </form>
+
+  {{/each}}
+</main>

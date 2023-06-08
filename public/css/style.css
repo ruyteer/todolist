@@ -1,0 +1,180 @@
+* {
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  height: 100vh;
+}
+
+/* NAVBAR */
+
+#nav {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  background-color: #222;
+  height: 45px;
+  width: 100vw;
+  color: white;
+}
+
+#nav ul {
+  display: flex;
+  list-style: none;
+}
+
+#nav h1 {
+  font-size: 30px;
+}
+
+#nav a {
+  font-size: 20px;
+  margin-left: 10px;
+  text-decoration: none;
+  color: white;
+}
+
+/* HOME CONTAINER  */
+main {
+  height: 100%;
+  width: 100vw;
+  background-color: #111;
+}
+
+#formAdd {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  top: 30%;
+}
+
+#formAdd input {
+  margin-left: 10px;
+}
+
+#inputTask {
+  width: 350px;
+  height: 40px;
+  align-items: center;
+  text-align: left;
+  padding: 10px;
+  border-radius: 15px;
+  border: none;
+  background-color: #222;
+  color: white;
+}
+
+#inputTask::placeholder {
+  color: gray;
+}
+
+#inputTask:focus {
+  outline: none;
+}
+
+#inputSubmit {
+  height: 35px;
+  width: 35px;
+  border-radius: 100%;
+  border: none;
+  background-color: purple;
+  color: white;
+  cursor: pointer;
+  transition: 450ms;
+}
+
+#inputSubmit:hover {
+  background-color: rgb(75, 3, 75);
+}
+
+.tasks {
+  display: flex;
+  align-items: center;
+  margin-top: 20%;
+  text-transform: capitalize;
+  flex-direction: column;
+  color: white;
+  background-color: #111;
+}
+
+.tasks ul {
+  list-style: none;
+}
+
+.tasks li {
+  padding: 10px;
+  background-color: #222;
+  width: 350px;
+  display: flex;
+  font-size: 18px;
+  margin: 10px;
+  border-radius: 18px;
+  justify-content: space-between;
+}
+
+.tasks a {
+  text-decoration: none;
+  color: rgb(156, 154, 154);
+  margin-left: 10px;
+  font-size: 20px;
+}
+
+.tasks a::after {
+  color: rgb(156, 154, 154);
+}
+
+.tasks label {
+  color: green;
+  font-size: 25px;
+  cursor: pointer;
+  transition: 300ms;
+}
+
+.tasks label:hover {
+  cursor: pointer;
+  color: darkgreen;
+}
+
+.tasks span {
+  margin-left: 20px;
+}
+
+#delete {
+  display: none;
+}
+
+/* EDIT PAGE */
+
+#editForm {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  top: 30%;
+}
+
+#editInput {
+  width: 350px;
+  height: 40px;
+  align-items: center;
+  text-align: left;
+  padding: 10px;
+  border-radius: 15px;
+  border: none;
+  background-color: #222;
+  color: white;
+}
+
+#editSubmit {
+  height: 35px;
+  width: 35px;
+  border-radius: 100%;
+  border: none;
+  background-color: purple;
+  color: white;
+  cursor: pointer;
+  transition: 450ms;
+  margin-left: 10px;
+}
