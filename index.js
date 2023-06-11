@@ -2,7 +2,8 @@
 
 const express = require("express");
 const exphbs = require("express-handlebars").create({});
-const mysql = require("mysql2");
+const conn = require("./db/conn");
+const Task = require("./models/Task");
 const app = express();
 
 // Handlebars config
@@ -16,85 +17,53 @@ app.use(express.json());
 
 // Rotas
 
-app.get("/edit/:id", (req, res) => {
+app.get("/edit/:id", async (req, res) => {
   const id = req.params.id;
-  const sql = `SELECT * FROM tasks WHERE id = ${id}`;
+  const task = await Task.findOne({ raw: true, where: { id: id } });
 
-  conn.query(sql, (err, data) => {
-    if (err) {
-      console.log(err);
-    }
-
-    const task = data;
-
-    res.render("edit", { task });
-  });
+  res.render("edit", { task });
 });
 
-app.post("/edit", (req, res) => {
+app.post("/edit", async (req, res) => {
   const name = req.body.name;
   const id = req.body.id;
 
-  const sql = `UPDATE tasks SET task = '${name}' WHERE id = ${id}`;
-  conn.query(sql, (err) => {
-    if (err) {
-      console.log(err);
-    }
-    res.redirect("/");
-  });
+  await Task.update({ task: name }, { where: { id: id } });
+
+  res.redirect("/");
 });
 
-app.post("/del", (req, res) => {
+app.post("/del", async (req, res) => {
   const id = req.body.id;
-  const sql = `DELETE FROM tasks WHERE id = ${id}`;
 
-  conn.query(sql, (err) => {
-    if (err) {
-      console.log(err);
-    }
-    res.redirect("/");
-  });
+  await Task.destroy({ where: { id: id } });
+  res.redirect("/");
 });
 
-app.post("/add", (req, res) => {
+app.post("/add", async (req, res) => {
   const task = req.body.name;
-  const sql = `INSERT INTO tasks (task) VALUES ('${task}')`;
-  conn.query(sql, (err) => {
-    if (err) {
-      console.log(err);
-    }
-    res.redirect("/");
-  });
+  await Task.create({ task: task });
+  res.redirect("/");
 });
 
-app.get("/", (req, res) => {
-  const sql = `SELECT * FROM tasks`;
-  conn.query(sql, (err, data) => {
-    if (err) {
-      console.log(err);
-    }
-    const task = data;
-    res.render("home", { task });
-  });
+app.get("/", async (req, res) => {
+  const task = await Task.findAll({ raw: true });
+  res.render("home", { task });
 });
 
 // Conexão
-const conn = mysql.createConnection({
-  host: "localhost",
-  database: "todolist",
-  user: "root",
-  password: "Ruyter99.",
-});
 
 /* Nome do banco: "todolist"
 Table: "tasks"
 Columns: "id, tasks"
 */
 
-conn.connect((err) => {
-  if (err) {
-    console.log(err);
-  }
-  console.log("App rodando");
-  app.listen(3000);
-});
+conn
+  .sync()
+  .then(() => {
+    app.listen(3000);
+    console.log("app rodando");
+  })
+  .catch((err) => {
+    console.log("Erro: " + err);
+  });
